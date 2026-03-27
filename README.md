@@ -56,26 +56,23 @@ The project is built using a **React frontend**, **Node.js/Express backend**, an
 
 # 🖼️ Application Screenshots
 
-*(Add screenshots of your application here)*
+<p align="center">
+  <img src="screenshots/homepage.jpeg" height="300">
+  <img src="screenshots/explore.jpeg" height="300">
+  <img src="screenshots/campaign.jpeg" height="300">
+</p>
 
-Example:
+<p align="center">
+  <img src="screenshots/donate.jpeg" height="300">
+  <img src="screenshots/profile.jpeg" height="300">
+  <img src="screenshots/admindashboard.jpeg" height="300">
+</p>
 
-```
-/screenshots
-   home.png
-   campaigns.png
-   admin-dashboard.png
-```
-
-Then display them in README like this:
-
-```markdown
-![Home Page](screenshots/home.png)
-![Campaign Page](screenshots/campaign.png)
-![Admin Dashboard](screenshots/admin.png)
-```
-
-Screenshots **greatly improve GitHub project quality**.
+<p align="center">
+  <img src="screenshots/manage campaigns.jpeg" height="300">
+  <img src="screenshots/manage donations.jpeg" height="300">
+  <img src="screenshots/create campaign.jpeg" height="300">
+</p>
 
 ---
 
@@ -156,31 +153,7 @@ This will:
 * Advanced analytics dashboard
 
 ---
-## 📸 Application Screenshots
 
-<p align="center">
-  <img src="screenshots/homepage.jpeg" width="45%">
-  <img src="screenshots/explore.jpeg" width="45%">
-</p>
-
-<p align="center">
-  <img src="screenshots/campaign.jpeg" width="45%">
-  <img src="screenshots/donate.jpeg" width="45%">
-</p>
-
-<p align="center">
-  <img src="screenshots/profile.jpeg" width="45%">
-  <img src="screenshots/admindashboard.jpeg" width="45%">
-</p>
-
-<p align="center">
-  <img src="screenshots/managecampaigns.jpeg" width="45%">
-  <img src="screenshots/manage donations.jpeg" width="45%">
-</p>
-
-<p align="center">
-  <img src="screenshots/create campaign.jpeg" width="70%">
-</p>
 
 # 👨‍💻 Author
 
