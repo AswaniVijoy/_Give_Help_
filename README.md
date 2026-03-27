@@ -58,7 +58,10 @@ The project is built using a **React frontend**, **Node.js/Express backend**, an
 
 ## 🎥 Application Demo
 
-[▶ Watch Demo Video](demo/Crowdfunding_Demo.mp4)
+Click below to watch the working demo of the application.
+
+📺 **Demo Video**  
+https://drive.google.com/file/d/1ZAijNZ4D79Ym9TIh4fgtyOeVeNYiB-Fk/view?usp=sharing
 
 
 
