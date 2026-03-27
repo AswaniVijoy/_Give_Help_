@@ -44,10 +44,10 @@ The platform provides a simple way to track **campaign goals, raised amounts, an
 
 </p>
 
-**Frontend:** React, Vite, TailwindCSS
-**Backend:** Node.js, Express.js
-**Database:** MongoDB
-**Authentication:** JWT
+**Frontend:** React, Vite, TailwindCSS<br/>
+**Backend:** Node.js, Express.js<br/>
+**Database:** MongoDB<br/>
+**Authentication:** JWT<br/>
 **Containerization:** Docker
 
 ---
