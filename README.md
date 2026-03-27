@@ -156,6 +156,31 @@ This will:
 * Advanced analytics dashboard
 
 ---
+## 📸 Application Screenshots
+
+<p align="center">
+  <img src="screenshots/homepage.jpeg" width="45%">
+  <img src="screenshots/explore.jpeg" width="45%">
+</p>
+
+<p align="center">
+  <img src="screenshots/campaign.jpeg" width="45%">
+  <img src="screenshots/donate.jpeg" width="45%">
+</p>
+
+<p align="center">
+  <img src="screenshots/profile.jpeg" width="45%">
+  <img src="screenshots/admindashboard.jpeg" width="45%">
+</p>
+
+<p align="center">
+  <img src="screenshots/managecampaigns.jpeg" width="45%">
+  <img src="screenshots/manage donations.jpeg" width="45%">
+</p>
+
+<p align="center">
+  <img src="screenshots/create campaign.jpeg" width="70%">
+</p>
 
 # 👨‍💻 Author
 
