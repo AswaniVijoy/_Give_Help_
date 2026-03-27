@@ -54,6 +54,10 @@ The project is built using a **React frontend**, **Node.js/Express backend**, an
 
 ---
 
+## 🎥 Application Demo
+
+[▶ Watch Demo Video](demo/Crowdfunding_Demo.mp4)
+
 # 🖼️ Application Screenshots
 
 <p align="center">
@@ -74,6 +78,11 @@ The project is built using a **React frontend**, **Node.js/Express backend**, an
   <img src="screenshots/create campaign.jpeg" height="300">
 </p>
 
+## 📚 Documentation
+
+Detailed project documentation:
+
+📘 [Project Documentation] (documentation/GiveHelp.docx)
 ---
 
 # 📂 Project Structure
