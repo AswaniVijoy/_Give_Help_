@@ -14,12 +14,11 @@ import NotFoundPage   from "./pages/NotFoundPage";
 import AdminDashboard  from "./admin/AdminDashboard";
 import AdminCampaigns  from "./admin/AdminCampaigns";
 import AdminDonations  from "./admin/AdminDonations";
-import AdminProfile    from "./admin/AdminProfile";      
+import AdminProfile    from "./admin/AdminProfile";
 import CreateCampaign  from "./admin/CreateCampaign";
 import EditCampaign    from "./admin/EditCampaign";
 
 export const router = createBrowserRouter([
-
   {
     element: <AuthLayout />,
     children: [
@@ -27,7 +26,6 @@ export const router = createBrowserRouter([
       { path: "/signup", element: <Signup /> },
     ],
   },
-
   {
     element: <MainLayout />,
     children: [
@@ -36,7 +34,6 @@ export const router = createBrowserRouter([
       { path: "/campaign/:id",   element: <CampaignDetail /> },
     ],
   },
-
   {
     element: <MainLayout />,
     children: [
@@ -49,23 +46,21 @@ export const router = createBrowserRouter([
       },
     ],
   },
-
   {
     element: <AdminLayout />,
     children: [
       {
         element: <Protected role="Admin" />,
         children: [
-          { path: "/admin/dashboard",          element: <AdminDashboard /> },
-          { path: "/admin/campaigns",          element: <AdminCampaigns /> },
-          { path: "/admin/donations",          element: <AdminDonations /> },
-          { path: "/admin/create-campaign",    element: <CreateCampaign /> },
-          { path: "/admin/edit-campaign/:id",  element: <EditCampaign /> },
-          { path: "/admin/profile",            element: <AdminProfile /> },  
+          { path: "/admin/dashboard",         element: <AdminDashboard /> },
+          { path: "/admin/campaigns",         element: <AdminCampaigns /> },
+          { path: "/admin/donations",         element: <AdminDonations /> },
+          { path: "/admin/create-campaign",   element: <CreateCampaign /> },
+          { path: "/admin/edit-campaign/:id", element: <EditCampaign /> },
+          { path: "/admin/profile",           element: <AdminProfile /> },
         ],
       },
     ],
   },
-
   { path: "*", element: <NotFoundPage /> },
 ]);

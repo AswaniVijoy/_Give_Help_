@@ -10,6 +10,8 @@ const campaignSchema = new Schema({
   Status:      { type: String, enum: ["Active", "Closed"], default: "Active" },
   CreatedBy:   String,
   CreatedAt:   { type: Date, default: Date.now },
+  isDeleted:   { type: Boolean, default: false },
+  DeletedAt:   { type: Date, default: null },
 });
 
 export const Campaign = model("Campaign", campaignSchema);

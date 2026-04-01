@@ -23,11 +23,7 @@ const EditCampaign = () => {
   }, [id]);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) { setImageFile(file); setImagePreview(URL.createObjectURL(file)); }
-  };
+  const handleImageChange = (e) => { const file = e.target.files[0]; if (file) { setImageFile(file); setImagePreview(URL.createObjectURL(file)); } };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,21 +37,11 @@ const EditCampaign = () => {
       formData.append("Category", form.Category);
       formData.append("Status", form.Status);
       if (imageFile) formData.append("Image", imageFile);
-
-      const res = await fetch("/api/admin/campaign/" + id, {
-        method: "PUT",
-        headers: { Authorization: token },
-        credentials: "include",
-        body: formData,
-      });
+      const res = await fetch("/api/admin/campaign/" + id, { method: "PUT", headers: { Authorization: token }, credentials: "include", body: formData });
       const data = await res.json();
       if (res.ok) { toast.success("Campaign updated successfully!"); navigate("/admin/campaigns"); }
       else toast.error(data.msg || "Update failed");
-    } catch {
-      toast.error("Server error. Make sure your backend is running.");
-    } finally {
-      setLoading(false);
-    }
+    } catch { toast.error("Server error."); } finally { setLoading(false); }
   };
 
   if (fetching) return <div className="min-h-screen flex items-center justify-center text-gray-500">Loading campaign...</div>;
@@ -65,27 +51,19 @@ const EditCampaign = () => {
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Edit Campaign</h2>
       <div className="bg-white shadow-sm rounded-2xl p-8 border border-gray-200">
         <form onSubmit={handleSubmit} className="space-y-5">
-          {[
-            { label: "Campaign Title", name: "Title", type: "text" },
-            { label: "Goal Amount (Rs.)", name: "Target", type: "number" },
-          ].map(({ label, name, type }) => (
+          {[{ label: "Campaign Title", name: "Title", type: "text" }, { label: "Goal Amount (Rs.)", name: "Target", type: "number" }].map(({ label, name, type }) => (
             <div key={name}>
               <label className="block text-gray-700 font-medium mb-1">{label}</label>
-              <input type={type} name={name} required min={name === "Target" ? "1" : undefined}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-                value={form[name]} onChange={handleChange} />
+              <input type={type} name={name} required min={name === "Target" ? "1" : undefined} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" value={form[name]} onChange={handleChange} />
             </div>
           ))}
           <div>
             <label className="block text-gray-700 font-medium mb-1">Description</label>
-            <textarea rows="4" name="Description" required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-              value={form.Description} onChange={handleChange} />
+            <textarea rows="4" name="Description" required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" value={form.Description} onChange={handleChange} />
           </div>
           <div>
             <label className="block text-gray-700 font-medium mb-1">Category</label>
-            <select name="Category" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-              value={form.Category} onChange={handleChange}>
+            <select name="Category" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" value={form.Category} onChange={handleChange}>
               {["Medical", "Education", "Animals", "Disaster Relief", "Community"].map(c => <option key={c}>{c}</option>)}
             </select>
           </div>
@@ -97,27 +75,22 @@ const EditCampaign = () => {
                 <img src={imagePreview} alt="Preview" className="h-40 w-full object-cover rounded-lg border border-gray-200" />
               </div>
             )}
-            <input type="file" accept="image/*" onChange={handleImageChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-black file:text-white hover:file:bg-gray-800 cursor-pointer" />
+            <input type="file" accept="image/*" onChange={handleImageChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-black file:text-white hover:file:bg-gray-800 cursor-pointer" />
             <p className="mt-1 text-xs text-gray-400">Leave empty to keep current image</p>
           </div>
           <div>
             <label className="block text-gray-700 font-medium mb-1">Status</label>
-            <select name="Status" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-              value={form.Status} onChange={handleChange}>
+            <select name="Status" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" value={form.Status} onChange={handleChange}>
               <option value="Active">Active</option>
               <option value="Closed">Closed</option>
             </select>
+            {form.Status === "Closed" && (
+              <p className="mt-1 text-xs text-orange-500">Closing this campaign will keep it visible to users but disable new donations.</p>
+            )}
           </div>
           <div className="flex gap-3">
-            <button type="submit" disabled={loading}
-              className="flex-1 bg-black text-white font-semibold py-3 rounded-lg hover:bg-gray-800 disabled:opacity-50 transition">
-              {loading ? "Saving..." : "Save Changes"}
-            </button>
-            <button type="button" onClick={() => navigate("/admin/campaigns")}
-              className="flex-1 bg-gray-100 text-gray-700 font-semibold py-3 rounded-lg hover:bg-gray-200 transition">
-              Cancel
-            </button>
+            <button type="submit" disabled={loading} className="flex-1 bg-black text-white font-semibold py-3 rounded-lg hover:bg-gray-800 disabled:opacity-50 transition">{loading ? "Saving..." : "Save Changes"}</button>
+            <button type="button" onClick={() => navigate("/admin/campaigns")} className="flex-1 bg-gray-100 text-gray-700 font-semibold py-3 rounded-lg hover:bg-gray-200 transition">Cancel</button>
           </div>
         </form>
       </div>

@@ -4,19 +4,9 @@ import { useAuth } from "../context/AuthContext";
 const DonorAvatar = ({ name, avatarBase64 }) => {
   const initial = name?.[0]?.toUpperCase() || "?";
   if (avatarBase64) {
-    return (
-      <img
-        src={`data:image/jpeg;base64,${avatarBase64}`}
-        alt={name}
-        className="w-8 h-8 rounded-full object-cover border border-gray-200 shrink-0"
-      />
-    );
+    return <img src={`data:image/jpeg;base64,${avatarBase64}`} alt={name} className="w-8 h-8 rounded-full object-cover border border-gray-200 shrink-0" />;
   }
-  return (
-    <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center text-xs font-bold shrink-0">
-      {initial}
-    </div>
-  );
+  return <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center text-xs font-bold shrink-0">{initial}</div>;
 };
 
 const AdminDashboard = () => {
@@ -28,20 +18,15 @@ const AdminDashboard = () => {
   const fetchData = () => {
     const token = localStorage.getItem("token");
     setLoading(true);
-
     Promise.all([
       fetch("/api/admin/campaigns", { headers: { Authorization: token }, credentials: "include" }).then(r => r.json()),
       fetch("/api/admin/donations", { headers: { Authorization: token }, credentials: "include" }).then(r => r.json()),
     ]).then(([campaigns, donations]) => {
       const campaignList = Array.isArray(campaigns) ? campaigns : [];
       const donationList = Array.isArray(donations) ? donations : [];
-
       const totalRaised = donationList.reduce((sum, d) => sum + (d.Amount || 0), 0);
       setStats({ campaigns: campaignList.length, raised: totalRaised, donors: donationList.length });
-
-      const recent = [...donationList]
-        .sort((a, b) => new Date(b.Date) - new Date(a.Date))
-        .slice(0, 5);
+      const recent = [...donationList].sort((a, b) => new Date(b.Date) - new Date(a.Date)).slice(0, 5);
       setRecentDonations(recent);
       setLoading(false);
     }).catch(() => setLoading(false));
@@ -49,36 +34,24 @@ const AdminDashboard = () => {
 
   useEffect(() => { fetchData(); }, []);
 
-  const adminAvatarSrc = profile?.avatarBase64
-    ? `data:image/jpeg;base64,${profile.avatarBase64}`
-    : null;
+  const adminAvatarSrc = profile?.avatarBase64 ? `data:image/jpeg;base64,${profile.avatarBase64}` : null;
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-8">
-
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Dashboard</h1>
         <div className="flex items-center gap-4">
-          <button
-            onClick={fetchData}
-            className="text-sm text-gray-500 hover:text-black border border-gray-200 px-3 py-1.5 rounded-lg transition"
-          >
-            ↻ Refresh
-          </button>
-
+          <button onClick={fetchData} className="text-sm text-gray-500 hover:text-black border border-gray-200 px-3 py-1.5 rounded-lg transition">↻ Refresh</button>
           <div className="flex items-center gap-2 text-sm text-gray-500">
             {adminAvatarSrc ? (
               <img src={adminAvatarSrc} alt="admin" className="w-7 h-7 rounded-full object-cover border border-gray-200" />
             ) : (
-              <div className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center text-xs font-bold">
-                {profile?.username?.[0]?.toUpperCase() || "A"}
-              </div>
+              <div className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center text-xs font-bold">{profile?.username?.[0]?.toUpperCase() || "A"}</div>
             )}
             <span>Welcome, {profile?.username}</span>
           </div>
         </div>
       </div>
-
       <div className="grid sm:grid-cols-3 gap-6 mt-6">
         {[
           { label: "Total Campaigns", value: stats.campaigns },
@@ -91,10 +64,8 @@ const AdminDashboard = () => {
           </div>
         ))}
       </div>
-
       <div className="mt-8 bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
         <h2 className="font-semibold text-lg mb-4">Recent Donations</h2>
-
         {loading ? (
           <div className="text-gray-500 text-sm">Loading...</div>
         ) : recentDonations.length === 0 ? (
@@ -127,7 +98,6 @@ const AdminDashboard = () => {
           </table>
         )}
       </div>
-
     </div>
   );
 };

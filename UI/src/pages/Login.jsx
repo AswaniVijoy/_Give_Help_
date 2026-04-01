@@ -7,7 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const { login, isAdmin } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -20,9 +20,7 @@ const Login = () => {
       navigate(role === "Admin" ? "/admin/dashboard" : "/", { replace: true });
     } catch (err) {
       toast.error(err.message || "Login failed");
-    } finally {
-      setLoading(false);
-    }
+    } finally { setLoading(false); }
   };
 
   return (
@@ -36,23 +34,15 @@ const Login = () => {
         <form onSubmit={handleLogin} className="mt-6 space-y-4">
           <div>
             <label className="text-sm font-medium text-gray-700">Email</label>
-            <input type="email" className="mt-1 w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
-              placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input type="email" className="mt-1 w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-black" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
           <div>
             <label className="text-sm font-medium text-gray-700">Password</label>
-            <input type="password" className="mt-1 w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
-              placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <input type="password" className="mt-1 w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-black" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
-          <button type="submit" disabled={loading}
-            className="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 disabled:opacity-50 transition">
-            {loading ? "Logging in..." : "Login"}
-          </button>
+          <button type="submit" disabled={loading} className="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 disabled:opacity-50 transition">{loading ? "Logging in..." : "Login"}</button>
         </form>
-        <p className="text-sm text-center text-gray-600 mt-6">
-          Don't have an account?{" "}
-          <Link to="/signup" className="text-black font-medium hover:underline">Sign up</Link>
-        </p>
+        <p className="text-sm text-center text-gray-600 mt-6">Don't have an account? <Link to="/signup" className="text-black font-medium hover:underline">Sign up</Link></p>
       </div>
     </div>
   );

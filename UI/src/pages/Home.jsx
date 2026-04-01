@@ -6,21 +6,16 @@ const Home = () => {
   const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState("All");
-  const { profile } = useAuth();  
+  const { profile } = useAuth();
 
   useEffect(() => {
     setLoading(true);
-    const url = category === "All"
-      ? "/api/campaign/featured"
-      : `/api/campaign/category/${category}`;
-
+    const url = category === "All" ? "/api/campaign/featured" : `/api/campaign/category/${category}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
         if (!Array.isArray(data)) { setCampaigns([]); setLoading(false); return; }
-        const sorted = category === "All"
-          ? data
-          : data.sort((a, b) => b.Raised - a.Raised).slice(0, 6);
+        const sorted = category === "All" ? data : data.sort((a, b) => b.Raised - a.Raised).slice(0, 6);
         setCampaigns(sorted);
         setLoading(false);
       })
@@ -31,46 +26,30 @@ const Home = () => {
     <div className="bg-gray-50 text-gray-800">
       <main className="max-w-5xl mx-auto px-6">
         <section className="mt-14 text-center">
-          <h1 className="text-4xl font-extrabold text-gray-900 leading-tight">
-            Support causes that change lives
-          </h1>
-          <p className="text-gray-600 mt-4 max-w-xl mx-auto">
-            Discover trusted donation campaigns. Give directly to verified beneficiaries and track real impact.
-          </p>
-          {profile && (
-            <p className="text-sm text-gray-500 mt-2">Welcome back, <span className="font-semibold">{profile.username}</span>!</p>
-          )}
-          <Link to="/explore" className="inline-block mt-6 px-6 py-3 rounded-lg bg-black text-white font-medium hover:bg-gray-800 transition">
-            Explore Campaigns
-          </Link>
+          <h1 className="text-4xl font-extrabold text-gray-900 leading-tight">Support causes that change lives</h1>
+          <p className="text-gray-600 mt-4 max-w-xl mx-auto">Discover trusted donation campaigns. Give directly to verified beneficiaries and track real impact.</p>
+          {profile && <p className="text-sm text-gray-500 mt-2">Welcome back, <span className="font-semibold">{profile.username}</span>!</p>}
+          <Link to="/explore" className="inline-block mt-6 px-6 py-3 rounded-lg bg-black text-white font-medium hover:bg-gray-800 transition">Explore Campaigns</Link>
         </section>
-
         <section className="mt-10">
           <h2 className="text-lg font-semibold text-gray-900">Categories</h2>
           <div className="mt-4 flex gap-3 flex-wrap">
             {["All", "Medical", "Education", "Disaster Relief", "Community", "Animals"].map((cat) => (
               <button key={cat} onClick={() => setCategory(cat)}
-                className={"px-4 py-2 border rounded-full text-sm transition " +
-                  (category === cat ? "bg-black text-white border-black" : "bg-white text-gray-700 border-gray-200 hover:bg-black hover:text-white")}>
+                className={"px-4 py-2 border rounded-full text-sm transition " + (category === cat ? "bg-black text-white border-black" : "bg-white text-gray-700 border-gray-200 hover:bg-black hover:text-white")}>
                 {cat}
               </button>
             ))}
           </div>
         </section>
-
         <section className="mt-10">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-semibold text-gray-900">
-                {category === "All" ? "Featured Campaigns" : `${category} Campaigns`}
-              </h2>
-              <p className="text-sm text-gray-500 mt-1">
-                {category === "All" ? "Top 6 most funded campaigns" : "Sorted by most funded"}
-              </p>
+              <h2 className="text-2xl font-semibold text-gray-900">{category === "All" ? "Featured Campaigns" : `${category} Campaigns`}</h2>
+              <p className="text-sm text-gray-500 mt-1">{category === "All" ? "Top 6 most funded campaigns" : "Sorted by most funded"}</p>
             </div>
             <Link to="/explore" className="text-sm text-black hover:underline">See all →</Link>
           </div>
-
           {loading ? (
             <div className="mt-8 text-center text-gray-500">Loading campaigns...</div>
           ) : campaigns.length === 0 ? (
@@ -87,9 +66,7 @@ const Home = () => {
                       ) : (
                         <div className="h-full flex items-center justify-center text-gray-400 text-sm">No Image</div>
                       )}
-                      {percent > 0 && (
-                        <span className="absolute top-2 right-2 bg-black text-white text-xs px-2 py-1 rounded-full">{percent}% funded</span>
-                      )}
+                      {percent > 0 && <span className="absolute top-2 right-2 bg-black text-white text-xs px-2 py-1 rounded-full">{percent}% funded</span>}
                     </div>
                     <div className="p-4">
                       <span className="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-full">{c.Category || "General"}</span>
@@ -101,9 +78,7 @@ const Home = () => {
                         </div>
                         <div className="mt-2 flex items-center justify-between text-sm text-gray-600">
                           <span>Rs.{c.Raised?.toLocaleString()} raised</span>
-                          <Link to={`/campaign/${c._id}`}>
-                            <button className="bg-black rounded-md text-white px-4 py-2 hover:bg-gray-700 transition">Donate</button>
-                          </Link>
+                          <Link to={`/campaign/${c._id}`}><button className="bg-black rounded-md text-white px-4 py-2 hover:bg-gray-700 transition">Donate</button></Link>
                         </div>
                       </div>
                     </div>
@@ -113,21 +88,11 @@ const Home = () => {
             </div>
           )}
         </section>
-
         <section className="mt-12 mb-12 bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
-            <div>
-              <div className="text-2xl font-bold text-black">Rs.52,00,000+</div>
-              <div className="text-sm text-gray-600 mt-1">Total Raised</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-black">1,200+</div>
-              <div className="text-sm text-gray-600 mt-1">Donors</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-black">350+</div>
-              <div className="text-sm text-gray-600 mt-1">Campaigns Funded</div>
-            </div>
+            <div><div className="text-2xl font-bold text-black">Rs.52,00,000+</div><div className="text-sm text-gray-600 mt-1">Total Raised</div></div>
+            <div><div className="text-2xl font-bold text-black">1,200+</div><div className="text-sm text-gray-600 mt-1">Donors</div></div>
+            <div><div className="text-2xl font-bold text-black">350+</div><div className="text-sm text-gray-600 mt-1">Campaigns Funded</div></div>
           </div>
         </section>
       </main>

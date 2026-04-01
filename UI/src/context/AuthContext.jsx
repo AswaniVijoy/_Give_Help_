@@ -11,22 +11,10 @@ export function AuthProvider({ children }) {
     try {
       const token = localStorage.getItem("token");
       if (!token) { setProfile(null); return; }
-
-      const res = await fetch("/api/user/profile", {
-        headers: { Authorization: token },
-        credentials: "include",
-      });
-
+      const res = await fetch("/api/user/profile", { headers: { Authorization: token }, credentials: "include" });
       if (!res.ok) { setProfile(null); return; }
-
       const data = await res.json();
-
-      setProfile({
-        username:     data.UserName,
-        email:        data.Email,
-        userRole:     data.UserRole,
-        avatarBase64: data.ProfilePicture || null,
-      });
+      setProfile({ username: data.UserName, email: data.Email, userRole: data.UserRole, avatarBase64: data.ProfilePicture || null });
     } catch {
       setProfile(null);
     } finally {
@@ -43,18 +31,8 @@ export function AuthProvider({ children }) {
   }, [fetchProfile]);
 
   const login = useCallback(async (email, password) => {
-    const res = await fetch("/api/user/login", {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ Email: email, Password: password }),
-    });
-
-    if (!res.ok) {
-      const data = await res.json();
-      throw new Error(data.msg || "Invalid Credentials!");
-    }
-
+    const res = await fetch("/api/user/login", { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ Email: email, Password: password }) });
+    if (!res.ok) { const data = await res.json(); throw new Error(data.msg || "Invalid Credentials!"); }
     const data = await res.json();
     localStorage.setItem("token", data.token);
     localStorage.setItem("role", data.role);
@@ -70,20 +48,9 @@ export function AuthProvider({ children }) {
     setProfile(null);
   }, []);
 
-  const value = useMemo(() => ({
-    profile,
-    loading,
-    login,
-    logout,
-    refresh: fetchProfile,
-    isAdmin: profile?.userRole === "Admin",
-  }), [profile, loading, login, logout, fetchProfile]);
+  const value = useMemo(() => ({ profile, loading, login, logout, refresh: fetchProfile, isAdmin: profile?.userRole === "Admin" }), [profile, loading, login, logout, fetchProfile]);
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
