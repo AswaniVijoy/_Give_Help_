@@ -92,21 +92,8 @@ https://drive.google.com/file/d/1ZAijNZ4D79Ym9TIh4fgtyOeVeNYiB-Fk/view?usp=shari
 
 Detailed project documentation:
 
-📘 [Project Documentation](documentation/GiveHelp.docx)
----
+📘 [Project Documentation](documentation/GiveHelp.pdf)
 
-
-
-# 📂 Project Structure
-
-```
-givehelp/
-│
-├── server/             # Backend (Node.js + Express)
-├── ui/                 # Frontend (React + Vite)
-├── docker-compose.yml
-└── README.md
-```
 
 ---
 
